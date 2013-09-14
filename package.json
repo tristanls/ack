@@ -1,0 +1,23 @@
+{
+  "name": "ack",
+  "version": "0.1.0",
+  "description": "XOR based ack tracking library for guaranteeing message processing",
+  "scripts": {
+    "test": "node scripts/test.js"
+  },
+  "main": "index.js",
+  "devDependencies": {
+    "nodeunit": "0.8.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:tristanls/node-ack.git"
+  },
+  "keywords": [
+    "xor",
+    "tracker",
+    "ack"
+  ],
+  "author": "Tristan Slominski <tristan.slominski@gmail.com>",
+  "license": "MIT"
+}
