@@ -137,7 +137,7 @@ The above example used binary looking strings for illustrative purposes. The rea
 ### Ack
 
 **Public API**
-  * [new Ack(options)](#new-ackoptions)
+  * [new Ack()](#new-ack)
   * [ack.add(tag, xorStamp)](#ackaddtag-xorstamp)
   * [ack.fail(tag)](#ackfailtag)
   * [ack.stamp(tag, xorStamp)](#ackstamptag-xorstamp)
