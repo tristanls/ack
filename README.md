@@ -28,7 +28,7 @@ and
 
 #### Ack chain
 
-Let's say that you want to do a letter count, and you have a database containing text files that contain words.
+Let's say that you want to do a word count, and you have a database containing text files that contain words.
 
 ```
 database -> files -> words
