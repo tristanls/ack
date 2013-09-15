@@ -82,7 +82,7 @@ First, we already registered the start of file processing via `ack.add(...)`, no
 
 Second, at the same time, we will acknowledge _starting_ the processing of each word. Let's say we have `word1`, `word2`, `word3`. We will generate a stamp for each word, so `word1Stamp`, `word2Stamp` and `word3Stamp`. To acknowledge the _starting_ of the processing we will send those word stamps to the acker.
 
-Now, remember that `A ^ A ^ B ^ C = 0 ^ B ^ C = B ^ C`. More precisely:
+Now, remember that `A ^ A ^ B ^ C ^ D = 0 ^ B ^ C ^ D = B ^ C ^ D`. More precisely:
 
 ```javascript
 var fileStamp  = '00101001'; // we mark completing file
@@ -137,6 +137,7 @@ The above example used binary looking strings for illustrative purposes. The rea
 ### Ack
 
 **Public API**
+  * [Ack.xor(first, second, \[zeroCallback\])](#ackxorfirst-second-zerocallback)
   * [new Ack()](#new-ack)
   * [ack.add(tag, xorStamp)](#ackaddtag-xorstamp)
   * [ack.fail(tag)](#ackfailtag)
@@ -154,11 +155,9 @@ _**CAUTION: reserved for internal use**_
 
 #### Ack.xor(first, second, [zeroCallback])
 
-_**CAUTION: reserved for internal use**_
-
   * `first`: _Buffer_ First buffer to compare.
   * `second`: _Buffer_ Second buffer to compare.
-  * `zeroCallback`: _Function_ _(Default: undefined)_ Optional callback to call if the result of XOR is 0.  
+  * `zeroCallback`: _Function_ _(Default: undefined)_ _**CAUTION: reserved for internal use**_ Optional callback to call if the result of XOR is 0.  
   * Return: _Buffer_ The result of `first` XOR `second`
 
 The lengths of the buffers must be equal.
@@ -172,6 +171,8 @@ Creates a new Ack instance.
   * `tag`: _String_ A unique identifier to track this ack chain.
   * `xorStamp`: _Buffer_ Initial stamp to start the ack chain for `tag`.
 
+Creates a tracker for the new ack chain identified by `tag` and using `xorStamp` as the initial state.
+
 #### ack.fail(tag)
 
   * `tag`: _String_ A unique identifier of a previously added `tag`.
@@ -183,6 +184,7 @@ Removes the `tag` and associated `xorStamp` from the acker and emits the `failed
   * `tag`: _String_ A unique identifier to track this ack chain.
   * `xorStamp`: _Buffer_ Initial stamp to start the ack chain for `tag`.
 
+If the internal state being tracked for the `tag` results in all 0s following the application (XOR) of the `xorStamp`, an `acked` event will be emitted for the `tag`.
 
 #### Event `acked`
 
